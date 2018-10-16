@@ -21,7 +21,6 @@ import { MatButtonModule, MatCardModule, MatInputModule,
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { RequestOptions } from '@angular/http';
-import { SnackComponent } from './snack/snack.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 
 const appRoutes: Routes = [
@@ -89,7 +88,7 @@ export function tokenGetter()
     })
   ],
   providers: [
-    ContactService, AuthenticationService, TokenStorage, AuthGuard, SnackComponent,
+    ContactService, AuthenticationService, TokenStorage, AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
