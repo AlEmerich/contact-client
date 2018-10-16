@@ -1,22 +1,22 @@
 <mat-card>
-  <form #contactForm="ngForm" (ngSubmit)="save(contactForm.value)">
+  <form #contactForm="ngForm" (ngSubmit)="save(contactForm.value, contact.id)">
     <mat-card-header>
       <mat-card-title><h2>{{contact.firstName ? 'Edit' : 'Add'}}</h2></mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <input type="hidden" name="href" [(ngModel)]="contact.href">
+      <input type="hidden" name="href" [(ngModel)]="contact">
       <mat-form-field>
         <input matInput placeholder="First Name"
           [(ngModel)]="contact.firstName"
           required name="firstName" #firstName>
       </mat-form-field>
-      <br />
+      <br/>
       <mat-form-field>
         <input matInput placeholder="Last Name"
           [(ngModel)]="contact.lastName"
           required name="lastName" #lastName>
       </mat-form-field>
-      <br />
+      <br/>
       <mat-form-field>
         <input matInput placeholder="Mail"
           [(ngModel)]="contact.mail"
@@ -26,8 +26,9 @@
     <mat-card-actions>
       <button mat-raised-button color="primary" type="submit"
         [disabled]="!contactForm.form.valid">Save</button>
-      <button mat-raised-button color="secondary" (click)="remove(contact.href)"
-        *ngIf="contact.href" type="button">Delete</button>
+      <button mat-raised-button color="secondary"
+        (click)="remove(contact) && openSnackBar('Contact removed', 'Dismiss')"
+        type="button">Delete</button>
       <a mat-button routerLink="/contact-list">Cancel</a>
     </mat-card-actions>
   </form>

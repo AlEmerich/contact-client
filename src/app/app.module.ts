@@ -16,10 +16,12 @@ import { AuthErrorHandler } from './core/auth-error-handler';
 
 // Angular Material
 import { MatButtonModule, MatCardModule, MatInputModule,
-         MatListModule, MatToolbarModule } from '@angular/material';
+         MatListModule, MatToolbarModule,
+         MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { RequestOptions } from '@angular/http';
+import { SnackComponent } from './snack/snack.component';
 
 const appRoutes: Routes = [
   {
@@ -34,7 +36,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'contact-list',
-    component: ContactEditComponent,
+    component: ContactListComponent,
   },
   {
     path: 'contact-add',
@@ -42,10 +44,10 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'contact-edit?id=:id',
+    path: 'contact-edit',
     component: ContactEditComponent,
     canActivate: [AuthGuard]
-  },
+  }
 
 ]
 
@@ -59,7 +61,8 @@ export function tokenGetter()
     AppComponent,
     ContactListComponent,
     ContactEditComponent,
-    LoginComponent
+    LoginComponent,
+    SnackComponent
   ],
   imports: [
     BrowserModule,
@@ -81,15 +84,15 @@ export function tokenGetter()
     })
   ],
   providers: [
-    ContactService, AuthenticationService, TokenStorage,
+    ContactService, AuthenticationService, TokenStorage, AuthGuard, SnackComponent,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
     },
     {
-      provide: ErrorHandler,
-      useClass: AuthErrorHandler
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: {duration: 2500}
     }],
   bootstrap: [AppComponent]
 })

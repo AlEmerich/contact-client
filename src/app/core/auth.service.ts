@@ -15,16 +15,7 @@ export class AuthenticationService {
 
     return this.http.post<any>('//localhost:8080/login',
                                body,
-                               { headers: headers })
-      .map(user => {
-        // login successful if there's a jwt token in the response
-        if (user && user.token) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify(user));
-        }
-
-        return user;
-      });
+                               { headers: headers, observe: "response"});
   }
 
   private serializeObj(obj) {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable({
@@ -25,22 +25,36 @@ export class ContactService {
     return this.http.get(this.contacts_api + '?id=' + id);
   }
 
-  save(contact: any): Observable<any>
+  save(contact: any, id: string): Observable<any>
   {
     let result: Observable<Object>;
-    if(contact['href'])
+    let headers = new HttpHeaders(
+      {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'http://localhost:4200/*',
+        'Access-Control-Allow-Methods': 'HEAD,GET,POST,PUT,PATCH,DELETE,OPTIONS'
+      }
+    );
+
+    console.log(this.contacts_api, contact);
+    if(id)
     {
-      result = this.http.put(contact.href, contact);
+      result = this.http.put(
+        this.contacts_api + "?id=" + id,
+        contact,
+        { headers : headers, observe: "response" });
     }
     else
     {
-      result = this.http.post(this.contacts_api, contact);
+      result = this.http.post(this.contacts_api,
+                              contact,
+                              { headers: headers, observe: "response"});
     }
     return result;
   }
 
-  remove(href: string): Observable<any>
+  remove(contact: any): Observable<any>
   {
-    return this.http.delete(href);
+    return this.http.delete(this.contacts_api + "?id=" + contact.id);
   }
 }

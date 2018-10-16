@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/first';
+import { Response } from '@angular/http';
 
 import { AuthenticationService } from '../core/auth.service';
 
@@ -29,16 +30,17 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
-        this.loading = true;
-        this.authenticationService.login(this.model.username, this.model.password)
-            .first()
-            .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    this.error = error;
-                    this.loading = false;
-                });
+      this.loading = true;
+      this.authenticationService.login(
+        this.model.username, this.model.password)
+        .subscribe(
+          res => {
+            localStorage.setItem("currentUser", res.headers.get("authorization"));
+            this.router.navigate([this.returnUrl]);
+          },
+          error => {
+            this.error = error;
+            this.loading = false;
+          });
     }
 }

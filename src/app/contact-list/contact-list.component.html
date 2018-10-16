@@ -1,15 +1,15 @@
 <mat-card>
-  <mat-card-header>Contact list</mat-card-header>
   <mat-card-content>
     <mat-list>
       <mat-list-item *ngFor="let contact of contacts">
         <h3 mat-line>
-          <a mat-button [routerLink]="['../contact-edit', contact.id]">
-            <b>{{contact.firstName}} {{contact.lastName}}</b>
+          <a mat-button [routerLink]="['../contact-edit']"
+            [queryParams]="{id: contact.id}">
+            <b>{{contact.firstName}} {{contact.lastName}}</b>&nbsp;<i>{{contact.mail}}</i>
           </a>
         </h3>
-        <h3 mat-line><b>Mail</b>: {{contact.mail}}</h3>
       </mat-list-item>
     </mat-list>
   </mat-card-content>
+  <app-contact-edit></app-contact-edit>
 </mat-card>

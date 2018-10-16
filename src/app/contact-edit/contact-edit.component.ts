@@ -21,14 +21,13 @@ export class ContactEditComponent implements OnInit, OnDestroy {
               private contactService: ContactService) { }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
+    this.sub = this.route.queryParams.subscribe(params => {
       const id = params["id"];
       if(id) {
         this.contactService.get(id).subscribe((contact: any) => {
           if(contact)
           {
             this.contact = contact;
-            this.contact.href = contact._links.self.href;
           }
           else
           {
@@ -52,14 +51,14 @@ export class ContactEditComponent implements OnInit, OnDestroy {
 
   save(form: NgForm)
   {
-    this.contactService.save(form).subscribe(result => {
+    this.contactService.save(form, this.contact.id).subscribe(result => {
       this.goToList();
     }, error => console.error(error));
   }
 
-  remove(href)
+  remove(id)
   {
-    this.contactService.remove(href).subscribe(result => {
+    this.contactService.remove(id).subscribe(result => {
       this.goToList();
     }, error => console.error(error));
   }
