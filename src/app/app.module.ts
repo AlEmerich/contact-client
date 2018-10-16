@@ -22,8 +22,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { RequestOptions } from '@angular/http';
 import { SnackComponent } from './snack/snack.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 const appRoutes: Routes = [
+  {
+    path: 'signup',
+    component: SignUpComponent
+  },
   {
     path: 'login',
     component: LoginComponent
@@ -62,7 +67,7 @@ export function tokenGetter()
     ContactListComponent,
     ContactEditComponent,
     LoginComponent,
-    SnackComponent
+    SignUpComponent
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,16 @@ export class AuthenticationService {
                                { headers: headers, observe: "response"});
   }
 
+  signout(user: string, pwd: string)
+  {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    let body = { username: user, password: pwd };
+
+    return this.http.post<any>('//localhost:8080/users/sign-up',
+                               body,
+                               { headers: headers, observe: "response"});
+  }
+
   private serializeObj(obj) {
     var result = [];
     for (var property in obj)
