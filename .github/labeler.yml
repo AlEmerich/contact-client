@@ -1,3 +1,3 @@
 # Add 'train-gds-booking' to any changes within 'example' folder or any subfolders
-train-gds-booking:
-  - train-gds-booking/**
+label_test:
+  - src/**
