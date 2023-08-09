@@ -1,9 +1,9 @@
 # Add 'train-gds-booking' to any changes within 'example' folder or any subfolders
 label_test:
-  - src/**
+  - changed-files: src/**
 
 label2:
-  - e2e/**
+  - changed-files: e2e/**
 
 label_branch_name:
   - head-branch: '^fix'
